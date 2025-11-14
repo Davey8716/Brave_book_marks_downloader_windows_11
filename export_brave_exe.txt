@@ -1,0 +1,44 @@
+@echo off
+REM ============================================================
+REM  build_exe.bat (fixed version)
+REM  Always works even if PyInstaller is not on PATH
+REM ============================================================
+
+REM Change to the folder where this script is located
+cd /d "%~dp0"
+
+REM Set Desktop output path
+set "DESKTOP=%USERPROFILE%\Desktop"
+
+REM Confirm required files exist
+if not exist "export_brave_bookmarks.py" (
+    echo [ERROR] export_brave_bookmarks.py not found in this folder.
+    pause
+    exit /b
+)
+
+if not exist "bookmarks.ico" (
+    echo [ERROR] bookmarks.ico not found in this folder.
+    echo Make sure the file name is EXACTLY: bookmarks.ico
+    pause
+    exit /b
+)
+
+echo.
+echo Building export_brave_bookmarks.exe with custom icon...
+echo.
+
+python -m PyInstaller --onefile --noconsole --icon="bookmarks.ico" --name export_brave_bookmarks "export_brave_bookmarks.py"
+
+echo.
+if exist "dist\export_brave_bookmarks.exe" (
+    echo Build succeeded!
+    echo Copying to Desktop: "%DESKTOP%"
+    copy /Y "dist\export_brave_bookmarks.exe" "%DESKTOP%\export_brave_bookmarks.exe" >nul
+    echo Done! You can now run export_brave_bookmarks.exe from your Desktop.
+) else (
+    echo Build failed. Check PyInstaller output above.
+)
+
+pause
+
