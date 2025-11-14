@@ -1,7 +1,7 @@
 SUPPORTED SYSTEMS
 
 Works on:
-• Windows 10 / Windows 11
+• Windows 11
 • Brave installed in the default location:
 %LOCALAPPDATA%\BraveSoftware\Brave-Browser\User Data\
 
